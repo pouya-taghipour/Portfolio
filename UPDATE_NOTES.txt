@@ -1,0 +1,13 @@
+PORTFOLIO UPDATE NOTES
+
+1. Open index.html in VS Code.
+2. Search for YOUR_ and replace the remaining GitHub and LinkedIn placeholders.
+3. Export your CV to PDF and save it as:
+   assets/Pouya-Taghipour-CV.pdf
+4. Add your photo as:
+   assets/profile.jpg
+5. The Hobbies section contains placeholders because hobbies were not listed in the CV.
+6. Each project has one large image placeholder. To insert an image, replace:
+   <div class="image-slot">Project image</div>
+   with:
+   <img class="image-slot" src="assets/projects/project-name.jpg" alt="Description">
