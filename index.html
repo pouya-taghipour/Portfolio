@@ -21,6 +21,12 @@
       --max: 1180px;
     }
 
+
+    .lead {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; scroll-padding-top: 88px; }
     body {
@@ -85,9 +91,9 @@
     .button:hover { transform:translateY(-2px); border-color:rgba(84,214,199,.55); }
     .button.primary { color:#06131e; background:linear-gradient(110deg,var(--accent),#9de9df); border-color:transparent; }
     .hero-meta { display:flex; flex-wrap:wrap; gap:.7rem 1.5rem; margin-top:1.7rem; color:var(--muted); font-size:.92rem; }
-    .profile-card { min-height:440px; padding:1.1rem; border-radius:34px; }
+    .profile-card { min-height:440px; padding:1.1rem; border-radius:25px; }
     .profile-photo {
-      min-height:410px; border-radius:25px;
+      min-height:500px; border-radius:25px;
       background:
         linear-gradient(rgba(7,17,31,.08),rgba(7,17,31,.5)),
         url("assets/profile.jpg") center/cover no-repeat;
@@ -198,7 +204,7 @@
     <a class="brand" href="#home">Pouya Taghipour<span>.</span></a>
     <button class="nav-toggle" id="navToggle" aria-label="Open navigation">☰</button>
     <div class="nav-links" id="navLinks">
-      <a href="#about">About</a>
+      <!-- <a href="#about">About</a> -->
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
       <a href="#research">Research</a>
@@ -215,19 +221,31 @@
     <div class="hero-grid">
       <div>
         <div class="eyebrow">Electronics Hardware · Embedded Systems · MCU/FPGA/SoC · ML/AI</div>
-        <h1>Designing advanced <span class="gradient">electronic hardware and embedded systems:</span> from concept to product.</h1>
+        <h2>Designing Advanced <span class="gradient">Electronic Hardware and Embedded Systems:</span> from Concpet to Product !</h2>
         <p class="lead">
-          I am Pouya Taghipour, an Electronics Hardware and Embedded Systems Designer with more than 10 years of experience across multiple industries, particularly defence and aerospace. My expertise spans system architecture, advanced analog, digital, and mixed-signal hardware based on FPGAs, SoCs, and MCUs, embedded firmware, PCB development, system integration, verification, and manufacturing. Beyond my professional work, I am passionate about designing complex and challenging electronic systems that solve real-world problems and create practical value.
+          I am Pouya Taghipour, an Electronics Hardware and Embedded Systems Designer with more than 10 years of experience across multiple industries, particularly defence and aerospace. My expertise spans electronic system architecture, advanced analog/digital/mixed hardware, adaptive computing, FPGA/SoCs/MCUs, on-edge AI, firmware development, PCB development, system integration, verification, and manufacturing.
+          <br><br>
+          Beyond my professional work, I am passionate about research and developing reliable solutions for technically demanding applications and designing complex end-to-end systems that solve real-world problems and deliver practical value.
+          <br><br>
+          I enjoy working collaboratively, problem solving, and continually learning. I may not have all the answers immediately, but I am passionate, persistent, and committed to finding solutions without giving up.
         </p>
         <div class="actions">
           <a class="button primary" href="#projects">View selected projects</a>
           <a class="button" href="assets/Pouya-Taghipour-CV.pdf" target="_blank">Download CV</a>
           <a class="button" href="mailto:pouya.taghipour@gmail.com">Contact me</a>
         </div>
+
         <div class="hero-meta">
           <span><strong>Location:</strong> Greater Montréal Metropolitan Area, Quebec, Canada</span>
-          <span><strong>Languages:</strong> English (Advanced), French (Beginner), Persian (Native)</span>
-          <span><strong>Member:</strong> IEEE since 2019</span>
+        </div>
+        <div class="hero-meta">
+          <span><strong>Languages:</strong> English (Advanced), French (Toddler), Persian/Farsi (Native)</span>
+        </div>
+        <div class="hero-meta">
+          <span><strong>Professional Membership:</strong> Graduate Student Member of IEEE Since 2019</span>
+        </div>
+        <div class="hero-meta">
+          <span><strong>Status in Canada:</strong> My family has been selected by Governemnt du Quebec for permanent residency via Programme régulier des travailleurs qualifiés (Regular Skilled Worker Program). We are still waiting for our PR decision from federal Governemnt. Although, I am authorized to work in Canada under a valid open work permit.</span>
         </div>
       </div>
 
@@ -239,15 +257,15 @@
     </div>
 
     <div class="stats card reveal">
-      <div class="stat"><strong>10+ years</strong><span>Multidisciplinary engineering experience</span></div>
-      <div class="stat"><strong>FPGA / SoC</strong><span>RTL, HLS and hardware–software co-design</span></div>
-      <div class="stat"><strong>Full lifecycle</strong><span>Requirements through validation and manufacturing</span></div>
-      <div class="stat"><strong>Space & Defence</strong><span>Standards-driven product development</span></div>
+      <div class="stat"><strong>+10 Years</strong><span>Multi-disciplinary engineering experience in various industries, specifically defence/military, aerospace</span></div>
+      <div class="stat"><strong>Full Lifecycle</strong><span>Leading project from concept to manufacturing, from system-level analysis to final product.</span></div>
+      <div class="stat"><strong>HW/SW</strong><span>Having well Knowledge and understanding of HW & SW for embedded systems</span></div>      
+      <div class="stat"><strong>Computing Hardware</strong><span>Deeply interested in heterogeneous and adaptive computing platforms that combine CPUs, GPUs, NPUs, FPGAs.</span></div>
     </div>
   </div>
 </section>
 
-<section class="section" id="about">
+<!-- <section class="section" id="about">
   <div class="container">
     <div class="section-heading reveal">
       <div>
@@ -285,32 +303,46 @@
       </article>
     </div>
   </div>
-</section>
+</section> -->
 
 <section class="section" id="skills">
   <div class="container">
     <div class="section-heading reveal">
-      <div><div class="eyebrow">Expertise</div><h2>Technical capabilities.</h2></div>
-      <p class="section-intro">A condensed overview of the skills most relevant to embedded product development and FPGA research.</p>
+      <div><div class="eyebrow">Expertise</div><h2>Technical Skills.</h2></div>
+      <!-- <p class="section-intro">A condensed overview of the skills most relevant to embedded product development and FPGA research.</p> -->
     </div>
 
     <div class="skills-grid">
       <article class="card skill-card reveal"><h3>Electronic Hardware</h3><ul class="tags">
         <li class="tag">Analog / Digital / Mixed Signal</li><li class="tag">Altium Designer</li>
-        <li class="tag">LTspice</li><li class="tag">Power Trees</li><li class="tag">EMI Filters</li>
-        <li class="tag">Board Bring-up</li><li class="tag">FMEA</li><li class="tag">Worst-Case Analysis</li>
+        <li class="tag">Schematic/PCB/PCBA</li><li class="tag">High-Speed Design</li>
+        <li class="tag">Circuit Simulation</li><li class="tag">LTSpice</li>
+        <li class="tag">Power Design</li><li class="tag">Power Tree</li><li class="tag">DCDC/LDO</li>
+        <li class="tag">Board Bring-up</li><li class="tag">Measurement</li><li class="tag">FMEA/Worst-Case Analysis</li>
+        <li class="tag">Sensors</li><li class="tag">EMI/EMC</li><li class="tag">Worst-Case Analysis</li>
+        <li class="tag">ESD Protection</li><li class="tag">Current Monitoring</li><li class="tag">PowerMux</li>
+        <li class="tag">Reverse Protection</li> <li class="tag">RTD</li> <li class="tag">ADC</li><li class="tag">DAC</li>
+        <li class="tag">OpAMP</li><li class="tag">PNP</li><li class="tag">NPN</li><li class="tag">MOSFET</li>
+        <li class="tag">H-Bridge</li><li class="tag">Power Sequencing</li> <li class="tag">Motor Control</li>
+        <li class="tag">Servo Motor</li><li class="tag">DC Motor</li><li class="tag">Stepper Motor</li>
+        <li class="tag">PWM</li><li class="tag">Connectors</li><li class="tag">Layer Stackup</li><li class="tag">Differential Signals</li>
+        <li class="tag">Comparator</li>
       </ul></article>
 
-      <article class="card skill-card reveal"><h3>FPGA & SoC</h3><ul class="tags">
-        <li class="tag">AMD/Xilinx FPGA</li><li class="tag">Zynq</li><li class="tag">VHDL</li>
+      <article class="card skill-card reveal"><h3>Computing System</h3><ul class="tags">
+        <li class="tag">AMD/Xilinx FPGA</li><li class="tag">Zynq SoC</li><li class="tag">VHDL</li><li class="tag">Ultrascale+</li>
         <li class="tag">Vitis HLS</li><li class="tag">C/RTL Co-Simulation</li>
-        <li class="tag">Area / Latency Optimization</li><li class="tag">PCIe</li><li class="tag">Multi-Gigabit Ethernet</li>
+        <li class="tag">Area / Latency Optimization</li><li class="tag">MIPI</li><li class="tag">Microcontroller</li>
+        <li class="tag">STM32 MCU</li><li class="tag">PCIe</li><li class="tag">RaspberryPi</li><li class="tag">Qualcomm SOM</li>
+        <li class="tag">ADM Vivado</li><li class="tag">RaspberryPi</li><li class="tag">ADM Kria</li><li class="tag">NVIDIA JETSON</li>
       </ul></article>
 
-      <article class="card skill-card reveal"><h3>Firmware & Software</h3><ul class="tags">
-        <li class="tag">C / C++</li><li class="tag">Python</li><li class="tag">FreeRTOS</li>
+      <article class="card skill-card reveal"><h3>Firmware, Software, and AI</h3><ul class="tags">
+        <li class="tag">C / C++</li><li class="tag">Python</li><li class="tag">FreeRTOS</li><li class="tag">STM32CubeIDE </li>
         <li class="tag">Embedded Linux</li><li class="tag">PetaLinux</li><li class="tag">PyTorch</li>
-        <li class="tag">NumPy / Pandas</li><li class="tag">OpenCV</li>
+        <li class="tag">NumPy / Pandas</li><li class="tag">OpenCV</li><li class="tag">Digital Signal Processing</li><li class="tag">Neural Networks</li>
+        <li class="tag">Artificial Intelligence</li><li class="tag">Multi-Layer Perceptron (MLP)</li><li class="tag">Graph Neural Network</li><li class="tag">FFT</li>
+        <li class="tag">Convolutional Neural Networks (CNN)</li>
       </ul></article>
 
       <article class="card skill-card reveal"><h3>Interfaces & Processing</h3><ul class="tags">
@@ -344,30 +376,41 @@
     <div class="timeline">
       <article class="job card reveal">
         <div class="job-top">
-          <div><h3>Embedded Systems Designer — KYNZE</h3><p class="muted">Saint-Bruno-de-Montarville, Québec · Full-time</p></div>
-          <strong>November 2024 — Present</strong>
+          <div><h3>Embedded Systems Engineer — KYNZE</h3><p class="muted">Saint-Bruno-de-Montarville, Québec · Contract, Full-time</p></div>
+          <strong>November 2024 — July 2026</strong>
         </div>
         <p class="muted">
-          Member of the Hardware/FPGA team developing custom embedded electronic products for industrial,
-          aerospace, defence, and technology clients.
+          Member of the Hardware/FPGA team developing custom electronic systems for various industries, specfically defence and space.
         </p>
         <ul>
-          <li>System architecture, hardware design, FPGA integration, prototyping, verification, and validation.</li>
-          <li>Requirements analysis and implementation of standards-driven electronics for space and defence applications.</li>
-          <li>Power, sensing, actuation, high-speed communication, clocking, and mixed-signal design.</li>
+          <li>System Requirements, Constraints and Specifications Analysis, Determine Expected System Functions and Performance </li>
+          <li>Feasibility Study and Technology Assessment: Cost-Performance Trade-off, Technical Risk Assessment</li>
+          <li>System Architecture: High-Level Block Diagram, Crticial Component Selection, Sub-System/Interface Definition, Worst-Case Analysis</li>
+          <li>Hardware Design: Circuit Simulation (LTSpice), Derating Analysis, Power Analysis, Detialed Schematic/PCB (Altium Designer), MCU/FPGA</li>
+          <li>Board Bring-up: Measurement, Debugging, Integrated Verification, Full Functional Test</li>
+          <li>Technichal Documenting: Design Review, Design Reports, Test/Measurement Report</li>
+          <li>Main Projects:
+              <ul>
+                <li>Multi-Spectral Camera Calibration Controller based on ESCC Class-2 Satellite</li>
+                <li>Distributed Multi-Sensor Acquisition and Processing Platform</li>
+              </ul>
+          </li>
         </ul>
       </article>
 
       <article class="job card reveal">
         <div class="job-top">
-          <div><h3>Embedded Systems Engineer — AAVAA</h3><p class="muted">Montréal, Québec · Contract, part-time</p></div>
+          <div><h3>Embedded Systems Engineer — AAVAA</h3><p class="muted">Montréal, Québec · Contract, Part-Time</p></div>
           <strong>January 2022 — February 2023</strong>
         </div>
-        <p class="muted">Designed and improved miniaturized STM32F4-based wearable devices for brain-computer-interface applications.</p>
+        <p class="muted">In this role, I was involved in trasnferring the prototype model of a smart headphone based on brain-computer-interface into product by improving the firmware (baremetal C for MCU) and collaborating in designing a new hardware.
+          <!-- Designed and improved miniaturized STM32F4-based wearable devices for brain-computer-interface applications.</p> -->
         <ul>
-          <li>Multi-channel EEG acquisition using SPI, interrupts, and DMA.</li>
+          <li>Capturing low-amplitude electroencephalogram (EEG) signals from the human's head by setting up a special ADC</li>
+          <li>Digital Signal Processing on EEG signals, pre-processing, filtering, and feature extraction</li>
           <li>Audio capture and MCU-based beamforming using MEMS microphones.</li>
           <li>Edge ML for blink and eye-angle detection; IMU and compass integration and calibration.</li>
+          <li>Defining required protocols between software GUI and MCU.</li>
           <li>FreeRTOS integration, power-management support, prototyping, and cross-team troubleshooting.</li>
         </ul>
       </article>
@@ -409,7 +452,7 @@
         </div>
         <div class="project-body">
           <div class="project-number">PROJECT 01 · SPACE ELECTRONICS</div>
-          <h3>Multi-Spectral Camera Calibration Controller for a Class-2 Satellite</h3>
+          <h3>Multi-Spectral Camera Calibration Controller based on ESCC Class-2 Satellite</h3>
           <p>
             Hardware controller for calibrating a multi-spectral satellite camera, developed with consideration
             of ESCC and space-component design practices.
