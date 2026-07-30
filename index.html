@@ -111,8 +111,19 @@
     .pad { padding:2rem; }
     .about-grid p + p { margin-top:1rem; }
 
-    .skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
-    .skill-card { padding:1.4rem; }
+    .skills-grid {
+      column-count: 2;
+      column-gap: 1rem;
+    }
+    .skill-card {
+      display: inline-block;
+      width: 100%;
+      padding: 1.4rem;
+      margin: 0 0 1rem;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      vertical-align: top;
+    }
     .tags { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1rem; list-style:none; }
     .tag { padding:.38rem .68rem; border:1px solid var(--line); border-radius:999px; color:var(--muted); font-size:.8rem; }
 
@@ -151,9 +162,44 @@
     .project ul { margin:1rem 0 0 1.15rem; color:var(--muted); }
     .project-links { display:flex; gap:1rem; margin-top:1.3rem; font-weight:800; color:var(--accent); }
 
-    .degree-grid,.award-grid,.hobby-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+    .degree-grid,.award-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
     .degree,.award,.hobby { padding:1.5rem; }
     .degree .year,.award .year { color:var(--accent); font-weight:900; margin-bottom:.6rem; }
+
+    .hobby-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+    }
+
+    .hobby-content {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 2rem;
+      align-items: start;
+      margin-top: 0.8rem;
+    }
+
+    .hobby-text { min-width: 0; }
+    .hobby-figure { margin: 0; }
+
+    .hobby-image {
+      width: 100%;
+      height: 210px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      object-fit: cover;
+      background: rgba(255,255,255,.025);
+    }
+
+    .hobby-caption {
+      margin-top: .45rem;
+      color: var(--accent);
+      font-size: .75rem;
+      font-style: italic;
+      line-height: 1.35;
+      text-align: center;
+    }
 
     .publication-list { display:grid; gap:1rem; }
     .publication { display:grid; grid-template-columns:90px 1fr auto; gap:1.3rem; padding:1.5rem; }
@@ -174,7 +220,8 @@
 
     @media (max-width: 930px) {
       .hero-grid,.section-heading,.about-grid,.contact-grid { grid-template-columns:1fr; }
-      .stats,.skills-grid,.degree-grid,.award-grid,.hobby-grid { grid-template-columns:repeat(2,1fr); }
+      .stats,.degree-grid,.award-grid { grid-template-columns:repeat(2,1fr); }
+      .skills-grid { column-count:2; }
       .projects-grid { grid-template-columns:1fr; }
       .publication { grid-template-columns:75px 1fr; }
       .publication-links { grid-column:2; flex-direction:row; }
@@ -187,7 +234,10 @@
         border-radius:18px; background:rgba(7,17,31,.98);
       }
       .nav-links.open { display:flex; }
-      .stats,.skills-grid,.degree-grid,.award-grid,.hobby-grid { grid-template-columns:1fr; }
+      .stats,.degree-grid,.award-grid { grid-template-columns:1fr; }
+      .hobby-content { grid-template-columns:1fr; gap:1rem; }
+      .hobby-image { height:220px; }
+      .skills-grid { column-count:1; }
       .stat { border-right:0; border-bottom:1px solid var(--line); }
       .stat:last-child { border-bottom:0; }
       .job-top,.footer-inner { flex-direction:column; }
@@ -195,6 +245,21 @@
       .publication-links { grid-column:auto; }
       .section { padding:5rem 0; }
     }
+
+
+    .section-heading h2 {
+  white-space: nowrap;
+}
+
+.highlight {
+  color: #ffd54a;
+}
+
+
+
+
+
+
   </style>
 </head>
 
@@ -265,46 +330,6 @@
   </div>
 </section>
 
-<!-- <section class="section" id="about">
-  <div class="container">
-    <div class="section-heading reveal">
-      <div>
-        <div class="eyebrow">About</div>
-        <h2>A multidisciplinary engineer with system-level depth.</h2>
-      </div>
-      <p class="section-intro">
-        I combine electronic hardware, embedded firmware, FPGA acceleration, machine learning,
-        system integration, and verification to develop reliable solutions for technically demanding applications.
-      </p>
-    </div>
-
-    <div class="about-grid">
-      <article class="card pad reveal">
-        <h3>Professional profile</h3>
-        <p class="muted">
-          My experience includes analog, digital, and mixed-signal circuit design; Altium schematic and PCB design;
-          LTspice simulation; board bring-up; troubleshooting; root-cause analysis; worst-case analysis; and FMEA.
-        </p>
-        <p class="muted">
-          I have developed systems around STM32, TMS and PIC microcontrollers, AMD/Xilinx FPGAs and SoCs,
-          Qualcomm, Raspberry Pi and NVIDIA Jetson platforms, with interfaces including MIPI, PCIe, SDI,
-          Ethernet, CAN, SPI, I²C, UART, RS-232 and RS-485.
-        </p>
-      </article>
-
-      <article class="card pad reveal">
-        <h3>Engineering approach</h3>
-        <p class="muted">
-          I focus on requirements-driven architecture, practical implementation, measurable validation,
-          and clear technical documentation. My background includes power trees, sequencing, protection,
-          sensor acquisition, image/video processing, high-speed links, embedded Linux, FreeRTOS,
-          and FPGA-based hardware acceleration.
-        </p>
-      </article>
-    </div>
-  </div>
-</section> -->
-
 <section class="section" id="skills">
   <div class="container">
     <div class="section-heading reveal">
@@ -314,53 +339,149 @@
 
     <div class="skills-grid">
       <article class="card skill-card reveal"><h3>Electronic Hardware</h3><ul class="tags">
-        <li class="tag">Analog / Digital / Mixed Signal</li><li class="tag">Altium Designer</li>
-        <li class="tag">Schematic/PCB/PCBA</li><li class="tag">High-Speed Design</li>
-        <li class="tag">Circuit Simulation</li><li class="tag">LTSpice</li>
-        <li class="tag">Power Design</li><li class="tag">Power Tree</li><li class="tag">DCDC/LDO</li>
-        <li class="tag">Board Bring-up</li><li class="tag">Measurement</li><li class="tag">FMEA/Worst-Case Analysis</li>
-        <li class="tag">Sensors</li><li class="tag">EMI/EMC</li><li class="tag">Worst-Case Analysis</li>
-        <li class="tag">ESD Protection</li><li class="tag">Current Monitoring</li><li class="tag">PowerMux</li>
-        <li class="tag">Reverse Protection</li> <li class="tag">RTD</li> <li class="tag">ADC</li><li class="tag">DAC</li>
-        <li class="tag">OpAMP</li><li class="tag">PNP</li><li class="tag">NPN</li><li class="tag">MOSFET</li>
-        <li class="tag">H-Bridge</li><li class="tag">Power Sequencing</li> <li class="tag">Motor Control</li>
-        <li class="tag">Servo Motor</li><li class="tag">DC Motor</li><li class="tag">Stepper Motor</li>
-        <li class="tag">PWM</li><li class="tag">Connectors</li><li class="tag">Layer Stackup</li><li class="tag">Differential Signals</li>
+        <li class="tag">Analog</li>
+        <li class="tag">Digital</li>
+        <li class="tag">Mixed Signal</li>
+        <li class="tag">Altium Designer</li>
+        <li class="tag">Schematic</li>
+        <li class="tag">PCB</li>
+        <li class="tag">PCBA</li>
+        <!-- <li class="tag">Placement</li> -->
+        <li class="tag">High-Speed Design</li>
+        <li class="tag">Circuit Simulation</li>
+        <li class="tag">LTSpice</li>
+        <li class="tag">Power Design</li>
+        <li class="tag">Power Tree</li>
+        <li class="tag">DCDC/LDO</li>
+        <li class="tag">UVLO</li>
+        <li class="tag">Over Current</li>
+        <li class="tag">Inrush Current</li>
+        <li class="tag">Board Bring-up</li>
+        <li class="tag">Measurement</li>
+        <li class="tag">FMEA/Worst-Case Analysis</li>
+        <li class="tag">Sensors</li>
+        <li class="tag">EMI/EMC</li>
+        <li class="tag">Worst-Case Analysis</li>
+        <li class="tag">ESD Protection</li>
+        <li class="tag">Current Monitoring</li>
+        <li class="tag">PowerMux</li>
+        <li class="tag">Reverse Protection</li>
+        <li class="tag">RTD</li>
+        <li class="tag">ADC</li>
+        <li class="tag">DAC</li>
+        <li class="tag">OpAMP</li>
+        <li class="tag">PNP</li>
+        <li class="tag">NPN</li>
+        <li class="tag">MOSFET</li>
+        <li class="tag">H-Bridge</li>
+        <li class="tag">Power Sequencing</li>
+        <li class="tag">Motor Control</li>
+        <li class="tag">Servo Motor</li>
+        <li class="tag">DC Motor</li>
+        <li class="tag">Stepper Motor</li>
+        <li class="tag">PWM</li>
+        <li class="tag">Connectors</li>
+        <li class="tag">Layer Stackup</li>
+        <li class="tag">Differential Signals</li>
         <li class="tag">Comparator</li>
+        <li class="tag">PTC</li>
+        <li class="tag">Jitter</li>
+        <li class="tag">Noise</li>
+        <li class="tag">High-Pass</li>
+        <li class="tag">Low-Pass</li>
+        <li class="tag">Filter</li>
+        <li class="tag">NTC</li>
+        <li class="tag">GPIO</li>
+        <li class="tag">LED</li>
+        <li class="tag">Clock</li>
       </ul></article>
 
       <article class="card skill-card reveal"><h3>Computing System</h3><ul class="tags">
-        <li class="tag">AMD/Xilinx FPGA</li><li class="tag">Zynq SoC</li><li class="tag">VHDL</li><li class="tag">Ultrascale+</li>
-        <li class="tag">Vitis HLS</li><li class="tag">C/RTL Co-Simulation</li>
-        <li class="tag">Area / Latency Optimization</li><li class="tag">MIPI</li><li class="tag">Microcontroller</li>
-        <li class="tag">STM32 MCU</li><li class="tag">PCIe</li><li class="tag">RaspberryPi</li><li class="tag">Qualcomm SOM</li>
-        <li class="tag">ADM Vivado</li><li class="tag">RaspberryPi</li><li class="tag">ADM Kria</li><li class="tag">NVIDIA JETSON</li>
+        <li class="tag">AMD/Xilinx</li>
+        <li class="tag">FPGA</li>
+        <li class="tag">DMA</li>
+        <li class="tag">VDMA</li>
+        <li class="tag">AXIS</li>
+        <li class="tag">BRAM</li>
+        <li class="tag">SRAM</li>
+        <li class="tag">Zynq</li>
+        <li class="tag">SoC</li>
+        <li class="tag">Synthesis</li>
+        <li class="tag">Post Implementation</li>
+        <li class="tag">VHDL</li>
+        <li class="tag">Ultrascale+</li>
+        <li class="tag">Vitis HLS</li>
+        <li class="tag">C/RTL Co-Simulation</li>
+        <li class="tag">Area / Latency Optimization</li>
+        <li class="tag">MIPI</li>
+        <li class="tag">Microcontroller</li>
+        <li class="tag">STM32 MCU</li>
+        <li class="tag">RaspberryPi</li>
+        <li class="tag">Qualcomm SOM</li>
+        <li class="tag">ADM Vivado</li>
+        <li class="tag">ADM Kria</li>
+        <li class="tag">NVIDIA JETSON</li>
+        
       </ul></article>
 
       <article class="card skill-card reveal"><h3>Firmware, Software, and AI</h3><ul class="tags">
-        <li class="tag">C / C++</li><li class="tag">Python</li><li class="tag">FreeRTOS</li><li class="tag">STM32CubeIDE </li>
-        <li class="tag">Embedded Linux</li><li class="tag">PetaLinux</li><li class="tag">PyTorch</li>
-        <li class="tag">NumPy / Pandas</li><li class="tag">OpenCV</li><li class="tag">Digital Signal Processing</li><li class="tag">Neural Networks</li>
-        <li class="tag">Artificial Intelligence</li><li class="tag">Multi-Layer Perceptron (MLP)</li><li class="tag">Graph Neural Network</li><li class="tag">FFT</li>
+        <li class="tag">C</li>
+        <li class="tag">C++</li>
+        <li class="tag">Python</li>
+        <li class="tag">FreeRTOS</li>
+        <li class="tag">STM32CubeIDE </li>
+        <li class="tag">Embedded Linux</li>
+        <li class="tag">PetaLinux</li>
+        <li class="tag">PyTorch</li>
+        <li class="tag">NumPy / Pandas</li>
+        <li class="tag">OpenCV</li>
+        <li class="tag">Digital Signal Processing</li>
+        <li class="tag">Neural Networks</li>
+        <li class="tag">Artificial Intelligence</li>
+        <li class="tag">Multi-Layer Perceptron (MLP)</li>
+        <li class="tag">Graph Neural Network</li>
+        <li class="tag">FFT</li>
         <li class="tag">Convolutional Neural Networks (CNN)</li>
       </ul></article>
 
       <article class="card skill-card reveal"><h3>Interfaces & Processing</h3><ul class="tags">
-        <li class="tag">MIPI</li><li class="tag">SDI</li><li class="tag">HDMI</li>
-        <li class="tag">1G–10G Ethernet</li><li class="tag">SPI / I²C / UART</li>
-        <li class="tag">CAN</li><li class="tag">Image Processing</li><li class="tag">Signal Processing</li>
+        <li class="tag">MIPI</li>
+        <li class="tag">SDI</li>
+        <li class="tag">HDMI</li>
+        <li class="tag">1G–10G Ethernet</li>
+        <li class="tag">SPI</li>
+        <li class="tag">I²C</li>
+        <li class="tag">UART</li>
+        <li class="tag">RS422</li>
+        <li class="tag">RS485</li>
+        <li class="tag">CAN</li>
+        <li class="tag">UDP</li>
+        <li class="tag">Ethernet</li>
+        <li class="tag">PCIe</li>
+        <li class="tag">VGA</li>
       </ul></article>
 
       <article class="card skill-card reveal"><h3>Standards</h3><ul class="tags">
-        <li class="tag">MIL-STD-461</li><li class="tag">MIL-STD-810</li>
-        <li class="tag">IEC 61000</li><li class="tag">ECSS / ESCC</li><li class="tag">ISO 9001</li>
+        <li class="tag">MIL-STD-461</li>
+        <li class="tag">MIL-STD-810</li>
+        <li class="tag">IEC 61000</li>
+        <li class="tag">ECSS / ESCC</li>
+        <li class="tag">ISO 9001</li>
         <li class="tag">NATO Requirements</li>
       </ul></article>
 
       <article class="card skill-card reveal"><h3>Documentation & Workflow</h3><ul class="tags">
-        <li class="tag">SRS / SyRS</li><li class="tag">RFI / RFP / SOW</li>
-        <li class="tag">Block Diagrams</li><li class="tag">Test Reports</li>
-        <li class="tag">QC Validation</li><li class="tag">Git / GitHub</li>
+        <li class="tag">SRS / SyRS</li>
+        <li class="tag">RFI / RFP / SOW</li>
+        <li class="tag">Block Diagrams</li>
+        <li class="tag">Test Reports</li>
+        <li class="tag">QC Validation</li>
+        <li class="tag">Design Report</li>
+        <li class="tag">Block Diagram</li>
+        <li class="tag">Statement of Work (SOW)</li>
+        <li class="tag">Gantt charts</li>
+        <li class="tag">Flow Charts</li>
+        
       </ul></article>
     </div>
   </div>
@@ -369,8 +490,8 @@
 <section class="section" id="experience">
   <div class="container">
     <div class="section-heading reveal">
-      <div><div class="eyebrow">Experience</div><h2>Professional experience.</h2></div>
-      <p class="section-intro">Selected roles and responsibilities, with detailed projects presented separately below.</p>
+      <div><div class="eyebrow">Experience</div><h2>Work Experience.</h2></div>
+      <!-- <p class="section-intro">Selected roles and responsibilities, with detailed projects presented separately below.</p> -->
     </div>
 
     <div class="timeline">
@@ -639,10 +760,10 @@
 <section class="section" id="research">
   <div class="container">
     <div class="section-heading reveal">
-      <div><div class="eyebrow">Research</div><h2>Research direction and publications.</h2></div>
+      <div><div class="eyebrow">Research</div><h2>Research and Publications.</h2></div>
       <p class="section-intro">
-        My doctoral research investigates automatic optimization of applications running on heterogeneous
-        FPGA-based computing platforms using machine learning.
+        <!-- My doctoral research investigates automatic optimization of applications running on heterogeneous
+        FPGA-based computing platforms using machine learning. -->
       </p>
     </div>
 
@@ -656,6 +777,16 @@
       </p>
     </article>
 
+      <article class="publication card reveal">
+        <div class="publication-year">2026</div>
+        <div>
+          <h3>MF-HLS: A Multi-Fidelity Graph Learning Framework for High-Level Synthesis Design Space Exploration</h3>
+          <p>P. Taghipour, M. Alehdaghi, N. Mrabah, E. Granger, and Y. Blaquière · Submitted to IEEE TCAD.</p>
+          <p>A multi-fidelity graph-learning approach designed to combine information from HLS evaluations of different cost and accuracy levels.</p>
+        </div>
+        <div class="publication-links"><a href="#">Preprint ↗</a><a href="#">Code ↗</a></div>
+      </article>
+
     <div class="publication-list">
       <article class="publication card reveal">
         <div class="publication-year">2025</div>
@@ -667,15 +798,7 @@
         <div class="publication-links"><a href="#">Paper ↗</a><a href="#">DOI ↗</a><a href="#">Code ↗</a></div>
       </article>
 
-      <article class="publication card reveal">
-        <div class="publication-year">2026</div>
-        <div>
-          <h3>MF-HLS: A Multi-Fidelity Graph Learning Framework for High-Level Synthesis Design Space Exploration</h3>
-          <p>P. Taghipour, M. Alehdaghi, N. Mrabah, E. Granger, and Y. Blaquière · Submitted to IEEE TCAD.</p>
-          <p>A multi-fidelity graph-learning approach designed to combine information from HLS evaluations of different cost and accuracy levels.</p>
-        </div>
-        <div class="publication-links"><a href="#">Preprint ↗</a><a href="#">Code ↗</a></div>
-      </article>
+
 
       <article class="publication card reveal">
         <div class="publication-year">2023</div>
@@ -703,8 +826,8 @@
 <section class="section" id="qualifications">
   <div class="container">
     <div class="section-heading reveal">
-      <div><div class="eyebrow">Academic Qualifications</div><h2>Degrees and professional qualifications.</h2></div>
-      <p class="section-intro">Formal academic background, selected training, awards, and professional membership.</p>
+      <div><div class="eyebrow">Academic Qualifications</div><h2>Academic Qualifications.</h2></div>
+      <!-- <p class="section-intro">Formal academic background, selected training, awards, and professional membership.</p> -->
     </div>
 
     <div class="degree-grid">
@@ -718,14 +841,14 @@
       <article class="degree card reveal">
         <div class="year">January 2019</div>
         <h3>M.Sc. in Electrical Engineering — Electronics</h3>
-        <p class="muted">Azad University, Gilan, Iran</p>
+        <p class="muted">Azad University, Iran</p>
         <p class="muted" style="margin-top:.7rem">FPGA-based real-time UAV image processing for forest-fire monitoring and detection.</p>
       </article>
 
       <article class="degree card reveal">
         <div class="year">August 2013</div>
         <h3>B.Sc. in Electrical Engineering</h3>
-        <p class="muted">Azad University, Gilan, Iran</p>
+        <p class="muted">Azad University, Iran</p>
         <p class="muted" style="margin-top:.7rem">Final project: obstacle-avoidance system for multi-rotor UAVs.</p>
       </article>
     </div>
@@ -762,16 +885,55 @@
   <div class="container">
     <div class="section-heading reveal">
       <div><div class="eyebrow">Beyond Engineering</div><h2>Hobbies and interests.</h2></div>
+      <br><br>
       <p class="section-intro">
-        Your CV does not currently list hobbies, so these cards are prepared as editable placeholders.
-        Replace them with your real interests and personal photos when ready.
+        Outside of my professional pursuits, I am a nature lover and outdoor enthusiast who enjoys adventure, exploration, and spending time in the natural world.
       </p>
     </div>
 
     <div class="hobby-grid">
-      <article class="hobby card reveal"><h3>Your Hobby 01</h3><p class="muted">Add a short personal description, for example what you enjoy, how long you have practiced it, or what it teaches you.</p></article>
-      <article class="hobby card reveal"><h3>Your Hobby 02</h3><p class="muted">You can add an outdoor, creative, technical, cultural, or athletic interest here.</p></article>
-      <article class="hobby card reveal"><h3>Your Hobby 03</h3><p class="muted">Optionally link to a photo gallery, personal project, competition, or related social profile.</p></article>
+      <article class="hobby card reveal">
+        <h3>Hiking</h3>
+        <div class="hobby-content">
+          <div class="hobby-text">
+            <p class="muted">Hiking, especially in winter, gives me a profound sense of freedom, peace,
+              and connection with nature. The silence of snow-covered mountains, the challenge of harsh conditions, and the feeling of reaching a summit bring me clarity, strength, and renewed energy. When I was younger in Iran,
+              I pursued mountaineering at a professional level and successfully climbed several of the country’s highest peaks, including Mount <span class="highlight">Damavand (5,610 m)</span>,
+              Mount <span class="highlight">Alam-Kuh (4,850 m)</span>, and
+              Mount <span class="highlight">Sabalan (4,811 m)</span>. These experiences taught me endurance, discipline, patience, and the determination to keep moving forward, even when the path becomes difficult.</p>
+          </div>
+          <figure class="hobby-figure">
+            <img class="hobby-image" src="assets/hobbies/hiking.png" alt="Mount Dorfak (2733m), January 2013, Gilan, Iran">
+            <figcaption class="hobby-caption">Mount Damavand, Iran · Winter 2014</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="hobby card reveal">
+        <h3>Camping</h3>
+        <div class="hobby-content">
+          <div class="hobby-text">
+            <p class="muted">Camping is one of my favorite ways to spend quality time with family and friends. I especially enjoy cooking outdoors, sharing meals around the campsite, and creating memorable moments in nature. Canada, particularly Québec, offers countless beautiful parks, forests, and lakes that make every camping trip a new adventure.</p>
+          </div>
+          <figure class="hobby-figure">
+            <img class="hobby-image" src="assets/hobbies/camping.png" alt="Parc national des Grands-Jardins, Quebec, 2025">
+            <figcaption class="hobby-caption">Québec, Canada · Summer 2025</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="hobby card reveal">
+        <h3>Fishing</h3>
+        <div class="hobby-content">
+          <div class="hobby-text">
+            <p class="muted">Fishing gives me a rare sense of peace and patience. Sitting beside the water, surrounded by silence and nature, allows me to slow down, clear my mind, and appreciate the moment. For me, fishing is not only about the catch—it is about the calm, the anticipation, and the quiet connection with the natural world.</p>
+          </div>
+          <figure class="hobby-figure">
+            <img class="hobby-image" src="assets/hobbies/fishing.png" alt="Parc national des Îles-de-Boucherville, Montreal, QC, 2024 ">
+            <figcaption class="hobby-caption">Laurentians, Québec · Autumn 2025</figcaption>
+          </figure>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -780,7 +942,7 @@
   <div class="container">
     <div class="section-heading reveal">
       <div><div class="eyebrow">Contact</div><h2>Let’s connect.</h2></div>
-      <p class="section-intro">For engineering opportunities, research collaboration, consulting, or technical discussion.</p>
+      <!-- <p class="section-intro">For engineering opportunities, research collaboration, consulting, or technical discussion.</p> -->
     </div>
 
     <div class="contact-grid">
