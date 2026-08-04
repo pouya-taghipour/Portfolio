@@ -133,8 +133,20 @@
     .job ul { margin:1rem 0 0 1.2rem; color:var(--muted); }
     .job li + li { margin-top:.45rem; }
 
-    .projects-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.2rem; }
-    .project { overflow:hidden; }
+    .projects-grid {
+      column-count: 2;
+      column-gap: 1.2rem;
+    }
+
+    .project {
+      display: inline-block;
+      width: 100%;
+      margin: 0 0 1.2rem;
+      overflow: hidden;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      vertical-align: top;
+    }
     .project-gallery {
       padding: 1rem 1rem 0;
     }
@@ -161,6 +173,84 @@
     .project p { margin-top:.85rem; color:var(--muted); }
     .project ul { margin:1rem 0 0 1.15rem; color:var(--muted); }
     .project-links { display:flex; gap:1rem; margin-top:1.3rem; font-weight:800; color:var(--accent); }
+
+    .project-gallery img {
+      cursor: zoom-in;
+      transition: transform .2s ease, opacity .2s ease;
+    }
+
+    .project-gallery img:hover {
+      transform: scale(1.015);
+      opacity: .94;
+    }
+
+    .image-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: rgba(2, 8, 16, .92);
+      backdrop-filter: blur(10px);
+    }
+
+    .image-lightbox.open { display: flex; }
+
+    .image-lightbox-content {
+      position: relative;
+      width: min(2500px, 120vw);
+      max-height: 120vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .image-lightbox img {
+      width: auto;
+      max-width: 150%;
+      max-height: 82vh;
+      object-fit: contain;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      background: var(--bg-2);
+    }
+
+    .image-lightbox-caption {
+      color: var(--muted);
+      font-size: .9rem;
+      text-align: center;
+    }
+
+    .image-lightbox-close {
+      position: absolute;
+      top: -1.1rem;
+      right: -1.1rem;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: rgba(7, 17, 31, .95);
+      color: var(--text);
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .image-lightbox-close:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    body.lightbox-open { overflow: hidden; }
+
+    @media (max-width: 720px) {
+      .image-lightbox { padding: 1rem; }
+      .image-lightbox-close { top: -.7rem; right: -.3rem; }
+    }
 
     .degree-grid,.award-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
     .degree,.award,.hobby { padding:1.5rem; }
@@ -222,7 +312,7 @@
       .hero-grid,.section-heading,.about-grid,.contact-grid { grid-template-columns:1fr; }
       .stats,.degree-grid,.award-grid { grid-template-columns:repeat(2,1fr); }
       .skills-grid { column-count:2; }
-      .projects-grid { grid-template-columns:1fr; }
+      .projects-grid { column-count:2; }
       .publication { grid-template-columns:75px 1fr; }
       .publication-links { grid-column:2; flex-direction:row; }
     }
@@ -238,6 +328,7 @@
       .hobby-content { grid-template-columns:1fr; gap:1rem; }
       .hobby-image { height:220px; }
       .skills-grid { column-count:1; }
+      .projects-grid { column-count:1; }
       .stat { border-right:0; border-bottom:1px solid var(--line); }
       .stat:last-child { border-bottom:0; }
       .job-top,.footer-inner { flex-direction:column; }
@@ -291,8 +382,8 @@
           I am Pouya Taghipour, an Electronics Hardware and Embedded Systems Designer with more than 10 years of experience across multiple industries, particularly defence and aerospace. My expertise spans electronic system architecture, advanced analog/digital/mixed hardware, adaptive computing, FPGA/SoCs/MCUs, on-edge AI, firmware development, PCB development, system integration, verification, and manufacturing.
           <br><br>
           Beyond my professional work, I am passionate about research and developing reliable solutions for technically demanding applications and designing complex end-to-end systems that solve real-world problems and deliver practical value.
-          <br><br>
-          I enjoy working collaboratively, problem solving, and continually learning. I may not have all the answers immediately, but I am passionate, persistent, and committed to finding solutions without giving up.
+          <!-- <br><br> -->
+          <!-- I enjoy working collaboratively, problem solving, and continually learning. I may not have all the answers immediately, but I am passionate, persistent, and committed to finding solutions without giving up. -->
         </p>
         <div class="actions">
           <a class="button primary" href="#projects">View selected projects</a>
@@ -322,10 +413,11 @@
     </div>
 
     <div class="stats card reveal">
-      <div class="stat"><strong>+10 Years</strong><span>Multi-disciplinary engineering experience in various industries, specifically defence/military, aerospace</span></div>
+      <div class="stat"><strong>Personal Strengths</strong><span>Eager to learn continuously and knowledge sharing, Collaborative and effective team player, Detail-oriented and self-motivated.</span></div>
       <div class="stat"><strong>Full Lifecycle</strong><span>Leading project from concept to manufacturing, from system-level analysis to final product.</span></div>
-      <div class="stat"><strong>HW/SW</strong><span>Having well Knowledge and understanding of HW & SW for embedded systems</span></div>      
-      <div class="stat"><strong>Computing Hardware</strong><span>Deeply interested in heterogeneous and adaptive computing platforms that combine CPUs, GPUs, NPUs, FPGAs.</span></div>
+      <div class="stat"><strong>HW & SW</strong><span>Having well Knowledge and understanding of HW & SW for embedded systems</span></div>      
+      <div class="stat"><strong>+10 Years</strong><span>Multi-disciplinary engineering experience in various industries, specifically defence/military, aerospace</span></div>
+      <!-- <div class="stat"><strong>Qualification</strong><span>Having M.Sc. and B.Sc in Electrical Engineering-Electronics, Ph.D. Candiate-Electrical Engineering,</span></div>       -->
     </div>
   </div>
 </section>
@@ -333,7 +425,7 @@
 <section class="section" id="skills">
   <div class="container">
     <div class="section-heading reveal">
-      <div><div class="eyebrow">Expertise</div><h2>Technical Skills.</h2></div>
+      <div><div class="eyebrow">Expertise</div><h2>Technical Skills</h2></div>
       <!-- <p class="section-intro">A condensed overview of the skills most relevant to embedded product development and FPGA research.</p> -->
     </div>
 
@@ -395,15 +487,22 @@
         <li class="tag">NTC</li>
         <li class="tag">GPIO</li>
         <li class="tag">LED</li>
-        <li class="tag">Clock</li>
+        <li class="tag">Signal Integrity</li>
+        <li class="tag">Length Matching</li>
+        <li class="tag">LVDS</li>
+        <li class="tag">Galvanic Isolation</li>
+        <li class="tag">Load Switching</li>        
       </ul></article>
 
       <article class="card skill-card reveal"><h3>Computing System</h3><ul class="tags">
         <li class="tag">AMD/Xilinx</li>
         <li class="tag">FPGA</li>
+        <li class="tag">MicroBlaze</li>
         <li class="tag">DMA</li>
         <li class="tag">VDMA</li>
-        <li class="tag">AXIS</li>
+        <li class="tag">AXI</li>
+        <li class="tag">AXI-Stream</li>
+        <li class="tag">AXI-Lite</li>
         <li class="tag">BRAM</li>
         <li class="tag">SRAM</li>
         <li class="tag">Zynq</li>
@@ -412,16 +511,34 @@
         <li class="tag">Post Implementation</li>
         <li class="tag">VHDL</li>
         <li class="tag">Ultrascale+</li>
+        <li class="tag">FIFO</li>
+        <li class="tag">LUT</li>
+        <li class="tag">FF</li>
+        <li class="tag">DSP</li>
+        <li class="tag">Logic</li>
+        <li class="tag">Timing</li>
+        <li class="tag">Programmable Logic (PL)</li>
+        <li class="tag">Processing System (PS)</li>
+        <li class="tag">DEBUG</li>
+        <li class="tag">Floating Pint</li>
+        <li class="tag">Fixed Pint</li>
         <li class="tag">Vitis HLS</li>
+        <li class="tag">Pragma</li>
+        <li class="tag">Area</li>
+        <li class="tag">Latency</li>
         <li class="tag">C/RTL Co-Simulation</li>
-        <li class="tag">Area / Latency Optimization</li>
+        <li class="tag">Optimization</li>
         <li class="tag">MIPI</li>
+        <li class="tag">Memory</li>
+        <li class="tag">Finite State Machine (FSM)</li>
+        <li class="tag">MUX</li>
         <li class="tag">Microcontroller</li>
         <li class="tag">STM32 MCU</li>
         <li class="tag">RaspberryPi</li>
         <li class="tag">Qualcomm SOM</li>
         <li class="tag">ADM Vivado</li>
         <li class="tag">ADM Kria</li>
+        <li class="tag">JTAG</li>
         <li class="tag">NVIDIA JETSON</li>
         
       </ul></article>
@@ -482,6 +599,7 @@
         <li class="tag">Block Diagram</li>
         <li class="tag">Statement of Work (SOW)</li>
         <li class="tag">Gantt charts</li>
+        <li class="tag">Bill of Material (BOM)</li>
         <li class="tag">Flow Charts</li>
         
       </ul></article>
@@ -492,7 +610,7 @@
 <section class="section" id="experience">
   <div class="container">
     <div class="section-heading reveal">
-      <div><div class="eyebrow">Experience</div><h2>Work Experience.</h2></div>
+      <div><div class="eyebrow">Experience</div><h2>Work Experiences</h2></div>
       <!-- <p class="section-intro">Selected roles and responsibilities, with detailed projects presented separately below.</p> -->
     </div>
 
@@ -512,12 +630,12 @@
           <li>Hardware Design: Circuit Simulation (LTSpice), Derating Analysis, Power Analysis, Detialed Schematic/PCB (Altium Designer), MCU/FPGA</li>
           <li>Board Bring-up: Measurement, Debugging, Integrated Verification, Full Functional Test</li>
           <li>Technichal Documenting: Design Review, Design Reports, Test/Measurement Report</li>
-          <li>Main Projects:
+          <!-- <li>Main Projects:
               <ul>
                 <li>Multi-Spectral Camera Calibration Controller based on ESCC Class-2 Satellite</li>
                 <li>Distributed Multi-Sensor Acquisition and Processing Platform</li>
               </ul>
-          </li>
+          </li> -->
         </ul>
       </article>
 
@@ -526,16 +644,21 @@
           <div><h3>Embedded Systems Engineer — AAVAA</h3><p class="muted">Montréal, Québec · Contract, Part-Time</p></div>
           <strong>January 2022 — February 2023</strong>
         </div>
-        <p class="muted">In this role, I was involved in trasnferring the prototype model of a smart headphone based on brain-computer-interface into product by improving the firmware (baremetal C for MCU) and collaborating in designing a new hardware.
+        <p class="muted">In this role, I contributed to transforming prototype brain–computer interface (BCI) wearable devices into product-ready systems by developing embedded firmware, 
+          signal-processing algorithms, and supporting hardware. The company’s products included smart headphones, glasses, and headbands designed to enable hands-free interaction through 
+          brain and physiological signals, including attention monitoring and blink-to-click control. 
+          <br>
+          My responsibilities included bare-metal C firmware development for microcontrollers, EEG analog front-end integration, low-amplitude biosignal acquisition, ADC configuration, 
+          digital filtering, feature extraction, edge machine-learning inference, microphone-array beamforming, sensor integration, and collaboration on next-generation hardware design.
           <!-- Designed and improved miniaturized STM32F4-based wearable devices for brain-computer-interface applications.</p> -->
-        <ul>
-          <li>Capturing low-amplitude electroencephalogram (EEG) signals from the human's head by setting up a special ADC</li>
+        <!-- <ul>
+          <li>Capturing low-amplitude electroencephalogram (EEG) signals from the human's head (brain signals) by setting up a special ADC</li>
           <li>Digital Signal Processing on EEG signals, pre-processing, filtering, and feature extraction</li>
           <li>Audio capture and MCU-based beamforming using MEMS microphones.</li>
           <li>Edge ML for blink and eye-angle detection; IMU and compass integration and calibration.</li>
           <li>Defining required protocols between software GUI and MCU.</li>
           <li>FreeRTOS integration, power-management support, prototyping, and cross-team troubleshooting.</li>
-        </ul>
+        </ul>-->
       </article>
 
       <article class="job card reveal">
@@ -543,12 +666,45 @@
           <div><h3>Embedded Systems Engineer — TGAT</h3><p class="muted">Tehran, Iran · Contract, full-time</p></div>
           <strong>May 2017 — January 2021</strong>
         </div>
-        <p class="muted">Designed and developed advanced flight payloads and real-time embedded imaging systems.</p>
-        <ul>
-          <li>Heterogeneous FPGA/ARM video-processing architectures based on Xilinx Zynq-7000.</li>
-          <li>Custom HLS/VHDL IP cores, low-level drivers, camera interfaces, data logging, remote control, and PCB design.</li>
-          <li>STM32F7-based aerial-photography controllers, camera synchronization, power control, stabilization, and telemetry.</li>
-        </ul>
+        <p class="muted">As an Embedded Systems Designer within the R&D department, I contributed to the development of advanced custom electronic systems tailored to client requirements across multiple industries. 
+          My role covered the full development lifecycle, from requirements analysis and technical solution definition to hardware design, firmware development, production support, and product optimization.</p>
+   <ul>
+  <li>
+    Participated in technical meetings with clients to understand operational needs, analyze system requirements, identify constraints, and propose practical engineering solutions.
+  </li>
+
+  <li>
+    Designed custom electronic hardware for a wide range of applications, with emphasis on reliability, manufacturability, regulatory compliance, and applicable industry standards.
+  </li>
+
+  <li>
+    Developed embedded firmware in C for PIC, TI, and STM32 microcontrollers, including peripheral drivers, communication interfaces, control logic, and system-level functionality.
+  </li>
+
+  <li>
+    Collaborated with manufacturing and production teams to support prototyping, board bring-up, troubleshooting, design-for-manufacturing, and transition to production.
+  </li>
+
+  <li>
+    Improved product performance and reduced system cost through component optimization, architectural refinement, and investigation of alternative technologies and implementation methods.
+  </li>
+
+  <li>
+    Researched and developed adaptive and heterogeneous computing solutions based on FPGAs, GPUs, and embedded processors for performance-critical applications.
+  </li>
+
+  <li>
+    Contributed to the design of heterogeneous computing platforms integrating microcontrollers, FPGAs, processors, and hardware accelerators.
+  </li>
+
+  <li>
+    Reviewed schematics, PCB layouts, component selections, and design documentation to identify technical risks and improve overall design quality.
+  </li>
+
+  <li>
+    Prepared technical reports, design documentation, test results, and engineering recommendations for internal teams and clients.
+  </li>
+</ul>
       </article>
     </div>
   </div>
@@ -557,11 +713,15 @@
 <section class="section" id="projects">
   <div class="container">
     <div class="section-heading reveal">
-      <div><div class="eyebrow">Selected Projects</div><h2>Top Selected Projects.</h2></div>
+      <div><div class="eyebrow">Selected Projects</div><h2>Top Projects</h2></div>
       <p class="section-intro">
-        <!-- Each project card contains one large image position. Later, replace the placeholder with your own
-        project image or diagram while keeping confidential information removed. -->
+        This section highlights a selection of the key projects I have contributed to throughout my career across multiple industries.
+        <br>
+         <span style="font-style: italic; font-size: 0.85rem;  color: rgb(238, 159, 12);">
+         <strong>Note:</strong>  Some images are AI-generated conceptual representations and do not represent the actual products. They are used to protect confidential information covered by NDAs and intellectual-property agreements.
+        </span>
       </p>
+      
     </div>
 
     <div class="projects-grid">
@@ -574,7 +734,7 @@
           />
         </div>
         <div class="project-body">
-          <div class="project-number">PROJECT 01 · SPACE ELECTRONICS</div>
+          <!-- <div class="project-number">PROJECT 01 · SPACE ELECTRONICS</div> -->
           <h3>Multi-Spectral Camera Calibration Controller based on ESCC Class-2 Satellite</h3>
           <p>
             Hardware controller for calibrating a multi-spectral satellite camera, developed with consideration
@@ -599,7 +759,7 @@
           />
         </div>
         <div class="project-body">
-          <div class="project-number">PROJECT 02 · AUTONOMOUS SYSTEMS</div>
+          <!-- <div class="project-number">PROJECT 02 · AUTONOMOUS SYSTEMS</div> -->
           <h3>Distributed Multi-Sensor Acquisition and Processing Platform</h3>
           <p>
             Low-latency, high-throughput platform for autonomous ground and aerial vehicles, designed around
@@ -624,17 +784,21 @@
           />
         </div>
         <div class="project-body">
-          <div class="project-number">PROJECT 03 · BCI WEARABLE</div>
+          <!-- <div class="project-number">PROJECT 03 · BCI WEARABLE</div> -->
           <h3>Intelligent Headphone Based on Brain-Computer Interface</h3>
           <p>
             Miniaturized wearable platform that combined EEG acquisition, acoustic beamforming,
             inertial sensing, edge ML, and real-time embedded control.
           </p>
           <ul>
-            <li>10–16-channel low-amplitude EEG acquisition and preprocessing.</li>
+            <li>10–16-channel low-amplitude EEG acquisition analog front end using special ADC from TI.</li>
+            <li>Digital Signal Processing on EEG signals, pre-processing, filtering, and feature extraction</li>
             <li>MEMS microphone acquisition and direction-of-arrival beamforming.</li>
-            <li>Neural-network inference for blink and eye-angle detection on the edge.</li>
+            <li>Neural-network inference for blink, head-angle detection on the edge.</li>
             <li>IMU/compass calibration, FreeRTOS task scheduling, battery charging, and power monitoring.</li>
+            <li>IMU and compass integration and calibration.</li>
+            <li>Defining data TX/RX protocols between software GUI and MCU on the bluetooth</li>                   
+             <li>FreeRTOS integration, power-management support, prototyping, and cross-team troubleshooting.</li>
           </ul>
         </div>
       </article>
@@ -669,7 +833,7 @@
           />
         </div>
         <div class="project-body">
-          <div class="project-number">PROJECT 04 · AERIAL IMAGING</div>
+          <!-- <div class="project-number">PROJECT 04 · AERIAL IMAGING</div> -->
           <h3>Multi-Head Aerial Photography System</h3>
           <p>
             Embedded acquisition and control platform for mapping and surveying using synchronized cameras,
@@ -693,14 +857,15 @@
           />
         </div>
         <div class="project-body">
-          <div class="project-number">PROJECT 05 · AERIAM IMAGING</div>
+          <!-- <div class="project-number">PROJECT 05 · AERIAM IMAGING</div> -->
           <h3>FPGA-Based Forest-Fire Monitoring and Detection</h3>
           <p>
             Master’s research project focused on real-time UAV image processing and FPGA acceleration
             for forest-fire monitoring and detection.
           </p>
           <ul>
-            <li>Real-time aerial image processing and embedded detection pipeline.</li>
+            <li>Fusion algorithms for Visible(RGB) and Thermal Camera.</li>
+            <li>Real-time video acquisition and processing using AMD/Xilinx Zynq SoC.</li>
             <li>FPGA-based acceleration for time-critical vision functions.</li>
             <li>Integration of UAV sensing, embedded processing, and monitoring concepts.</li>
           </ul>
@@ -717,7 +882,7 @@
           />
         </div>
         <div class="project-body">
-          <div class="project-number">PROJECT 06 . EMBEDDED IMAGE PROCESSING </div>
+          <!-- <div class="project-number">PROJECT 06 . EMBEDDED IMAGE PROCESSING </div> -->
           <h3>FPGA-based Stereo Camera</h3>
           <p>
             An FPGA-based stereo vision system uses a field-programmable gate array to process synchronized images from two cameras and generate real-time depth information. 
@@ -775,7 +940,7 @@
 <section class="section" id="research">
   <div class="container">
     <div class="section-heading reveal">
-      <div><div class="eyebrow">Research</div><h2>Research and Publications.</h2></div>
+      <div><div class="eyebrow">Research</div><h2>Research and Publications</h2></div>
       <p class="section-intro">
         <!-- My doctoral research investigates automatic optimization of applications running on heterogeneous
         FPGA-based computing platforms using machine learning. -->
@@ -841,7 +1006,7 @@
 <section class="section" id="qualifications">
   <div class="container">
     <div class="section-heading reveal">
-      <div><div class="eyebrow">Academic Qualifications</div><h2>Academic Qualifications.</h2></div>
+      <div><div class="eyebrow">Academic Qualifications</div><h2>Academic Qualifications</h2></div>
       <!-- <p class="section-intro">Formal academic background, selected training, awards, and professional membership.</p> -->
     </div>
 
@@ -868,8 +1033,8 @@
       </article>
     </div>
 
-    <div class="section-heading reveal" style="margin-top:4rem">
-      <div><div class="eyebrow">Recognition</div><h2>Honors and awards.</h2></div>
+    <!-- <div class="section-heading reveal" style="margin-top:4rem">
+      <div><div class="eyebrow">Recognition</div><h2>Honors and Awards</h2></div>
       <br><br>
       <p class="section-intro">Selected achievements in entrepreneurship and robotics competitions.</p>
     </div>
@@ -893,14 +1058,14 @@
         <li class="tag">FPGA Digital System Design</li>
         <li class="tag">FPGA Digital Signal Processing</li>
       </ul>
-    </article>
+    </article> -->
   </div>
 </section>
 
 <section class="section" id="hobbies">
   <div class="container">
     <div class="section-heading reveal">
-      <div><div class="eyebrow">Beyond Engineering</div><h2>Hobbies and interests.</h2></div>
+      <div><div class="eyebrow">Beyond Engineering</div><h2>Hobbies and Interests</h2></div>
       <br><br>
       <p class="section-intro">
         Outside of my professional pursuits, I am a nature lover and outdoor enthusiast who enjoys adventure, exploration, and spending time in the natural world.
@@ -985,6 +1150,14 @@
 </section>
 </main>
 
+<div class="image-lightbox" id="imageLightbox" role="dialog" aria-modal="true" aria-label="Expanded project image" aria-hidden="true">
+  <div class="image-lightbox-content">
+    <button class="image-lightbox-close" id="imageLightboxClose" type="button" aria-label="Close expanded image">×</button>
+    <img id="imageLightboxImage" src="" alt="">
+    <p class="image-lightbox-caption" id="imageLightboxCaption"></p>
+  </div>
+</div>
+
 <footer>
   <div class="container footer-inner">
     <p>© <span id="year"></span> Pouya Taghipour. All rights reserved.</p>
@@ -1024,6 +1197,51 @@
   }, { threshold: .12 });
 
   document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+
+  const imageLightbox = document.getElementById("imageLightbox");
+  const imageLightboxImage = document.getElementById("imageLightboxImage");
+  const imageLightboxCaption = document.getElementById("imageLightboxCaption");
+  const imageLightboxClose = document.getElementById("imageLightboxClose");
+  const projectImages = document.querySelectorAll(".project-gallery img");
+
+  function openImageLightbox(image) {
+    imageLightboxImage.src = image.currentSrc || image.src;
+    imageLightboxImage.alt = image.alt || "Expanded project image";
+    imageLightboxCaption.textContent = image.alt || "";
+    imageLightbox.classList.add("open");
+    imageLightbox.setAttribute("aria-hidden", "false");
+    document.body.classList.add("lightbox-open");
+    imageLightboxClose.focus();
+  }
+
+  function closeImageLightbox() {
+    imageLightbox.classList.remove("open");
+    imageLightbox.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("lightbox-open");
+    imageLightboxImage.src = "";
+  }
+
+  projectImages.forEach(image => {
+    image.setAttribute("tabindex", "0");
+    image.setAttribute("role", "button");
+    image.setAttribute("aria-label", `Open full-size image: ${image.alt || "project image"}`);
+    image.addEventListener("click", () => openImageLightbox(image));
+    image.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openImageLightbox(image);
+      }
+    });
+  });
+
+  imageLightboxClose.addEventListener("click", closeImageLightbox);
+  imageLightbox.addEventListener("click", event => {
+    if (event.target === imageLightbox) closeImageLightbox();
+  });
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && imageLightbox.classList.contains("open")) closeImageLightbox();
+  });
 </script>
 </body>
 </html>
